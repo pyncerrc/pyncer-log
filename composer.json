@@ -1,0 +1,21 @@
+{
+    "name": "pyncer/log",
+    "type": "library",
+    "description": "Pyncer library for generating http responses.",
+    "homepage": "https://pyncer.com/log",
+    "license": "Unlicense",
+    "require": {
+        "php": ">=8.1",
+        "psr/log": "^3.0.0",
+        "pyncer/database": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pyncer\\Log\\": "src/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/pyncerrc/pyncer-log/issues",
+        "source": "https://github.com/pyncerrc/pyncer-log"
+    }
+}
