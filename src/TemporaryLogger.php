@@ -18,8 +18,8 @@ class TemporaryLogger extends AbstractLogger implements
     {
         $this->items[] = [
             'level' => $level,
-            'message' => strval($message),
-            'context' => $context
+            'message' => $message,
+            'context' => $context,
         ];
     }
 

@@ -2,21 +2,20 @@
 namespace Pyncer\Log;
 
 use Pyncer\Log\AbstractLogger;
+use Pyncer\Data\DataRewriterInterface;
+use Pyncer\Data\Mapper\MapperAdaptorInterface;
 use Pyncer\Database\ConnectionInterface;
 use Stringable;
 
 use function json_encode;
+use function Pyncer\date_time as pyncer_date_time;
+use function strval;
 
 class DatabaseLogger extends AbstractLogger
 {
-    protected ConnectionInterface $connection;
-    protected string $table;
-
-    public function __construct(ConnectionInterface $connection, string $table)
-    {
-        $this->connection = $connection;
-        $this->table = $table;
-    }
+    public function __construct(
+        protected MapperAdaptorInterface $mapperAdaptor,
+    ) {}
 
     public function log(
         mixed $level,
@@ -26,14 +25,15 @@ class DatabaseLogger extends AbstractLogger
     {
         $context = ($context ? json_encode($context) : null);
 
-        $query = $this->connection
-            ->insert($this->table)
-            ->values([
-                'level' => $level,
-                'message' => strval($message),
-                'context' => $context,
-                'insert_date_time' => $this->connection->dateTime()
-            ])->execute();
+        $data = [
+            'level' => $level,
+            'message' => strval($message),
+            'context' => $context,
+            'insert_date_time' => pyncer_date_time()
+        ];
+
+        $model = $this->mapperAdaptor->forgeModel($data);
+        $this->mapperAdaptor->getMapper()->insert($model);
     }
 
     public function commit(): void

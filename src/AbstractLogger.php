@@ -31,7 +31,7 @@ abstract class AbstractLogger implements PsrLoggerInterface {
             $this->log(
                 $item['level'],
                 $item['message'],
-                $item['value']
+                $item['context'],
             );
         }
 
