@@ -23,7 +23,7 @@ abstract class AbstractLogger implements PsrLoggerInterface {
 
     public function inherit(PsrLoggerInterface $logger): bool
     {
-        if (!($logger instanceof InheritableLoggerInterface)) {
+        if (!$logger instanceof InheritableLoggerInterface) {
             return false;
         }
 
