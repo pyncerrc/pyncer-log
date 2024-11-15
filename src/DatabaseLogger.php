@@ -2,7 +2,6 @@
 namespace Pyncer\Log;
 
 use Pyncer\Log\AbstractLogger;
-use Pyncer\Data\DataRewriterInterface;
 use Pyncer\Data\Mapper\MapperAdaptorInterface;
 use Pyncer\Database\ConnectionInterface;
 use Stringable;
@@ -35,7 +34,4 @@ class DatabaseLogger extends AbstractLogger
         $model = $this->mapperAdaptor->forgeModel($data);
         $this->mapperAdaptor->getMapper()->insert($model);
     }
-
-    public function commit(): void
-    {}
 }
