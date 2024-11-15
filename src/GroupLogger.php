@@ -7,13 +7,15 @@ use Pyncer\Log\InheritableLoggerInterface;
 use Pyncer\Log\TemporaryLogger;
 use Stringable;
 
-class GroupLooger extends AbstractLogger implements InheritableLoggerInterface
+class GroupLogger extends AbstractLogger implements InheritableLoggerInterface
 {
     private TemporaryLogger $temporaryLogger;
+    private array $loggers;
 
     public function __construct(
-        protected PsrLoggerInterface ...$loggers,
+        PsrLoggerInterface ...$loggers,
     ) {
+        $this->loggers = $loggers;
         $this->temporaryLogger = new TemporaryLogger();
     }
 
